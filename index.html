@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semo & Sky ❤️</title>
+    <!-- استدعاء الخطوط -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Pacifico&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111111;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* تنسيق الأسماء في الخلفية */
+        #names-bg {
+            position: fixed;
+            inset: -50px;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-auto-rows: 80px;
+            align-items: center;
+            justify-items: center;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .name-word {
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        /* حاوية مطر القلوب */
+        #hearts-container {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .falling-heart {
+            position: absolute;
+            top: -50px;
+            user-select: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* المحتوى الرئيسي في المنتصف */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* الإطار الدائري المضيء */
+        .photo-frame {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255, 0, 128, 0.7);
+            animation: glow 3s infinite;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 0, 128, 0.5); }
+            50% { box-shadow: 0 0 80px rgba(255, 0, 128, 1); }
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* الجملة أسفل الصورة */
+        .love-quote {
+            margin-top: -15px;
+            background: rgba(15, 15, 15, 0.95);
+            color: #ff7eb3;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: 1px solid rgba(255, 126, 179, 0.4);
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            z-index: 11;
+        }
+
+        /* مشغل الصوت */
+        .audio-container {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 8px 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 126, 179, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 71, 126, 0.3);
+            z-index: 11;
+        }
+
+        .audio-container iframe {
+            display: block;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الخلفية المليئة بالأسماء -->
+    <div id="names-bg"></div>
+
+    <!-- حاوية مطر القلوب -->
+    <div id="hearts-container"></div>
+
+    <!-- المحتوى (الصورة والمشغل) -->
+    <div class="main-content">
+        <div class="photo-frame">
+            <!-- ضع الصورة بجانب ملف الـ HTML وسميها photo.jpg -->
+            <img src="photo.jpg" alt="Semo & Sky" onerror="this.src='https://i.ibb.co/SD61VQC7/Whats-App-Image-2026-10-01-at-2-16-54-AM.jpg'">
+        </div>
+
+        <div class="love-quote">
+            My heart beats only for you ❤️
+        </div>
+
+        <!-- مشغل الصوت المدمج -->
+        <div class="audio-container">
+            <iframe width="260" height="50" src="https://vocaroo.com/embed/1ajlCexzgzgT?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // 1. توليد الأسماء في الخلفية
+        const bgContainer = document.getElementById('names-bg');
+        const words = ['sama', 'semo', 'sky', 'سما', 'سيمو'];
+        const colors = ['#d9534f', '#5bc0de', '#f0ad4e', '#5cb85c', '#9b59b6', '#e67e22', '#3498db'];
+        const fonts = ["'Cairo', sans-serif", "'Pacifico', cursive", "'Sacramento', cursive"];
+
+        for (let i = 0; i < 120; i++) {
+            const span = document.createElement('span');
+            span.className = 'name-word';
+            
+            span.textContent = words[Math.floor(Math.random() * words.length)];
+            span.style.color = colors[Math.floor(Math.random() * colors.length)];
+            span.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+            
+            const randomSize = (Math.random() * 0.6 + 1) + 'rem';
+            const randomRotate = Math.floor(Math.random() * 30 - 15);
+
+            span.style.fontSize = randomSize;
+            span.style.transform = `rotate(${randomRotate}deg)`;
+
+            bgContainer.appendChild(span);
+        }
+
+        // 2. توليد مطر القلوب المتحركة
+        const heartsContainer = document.getElementById('hearts-container');
+        const heartShapes = ['❤️', '💖', '💗', '💕', '🩷'];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'falling-heart';
+            heart.textContent = heartShapes[Math.floor(Math.random() * heartShapes.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            const size = (Math.random() * 1.2 + 0.8) + 'rem';
+            heart.style.fontSize = size;
+            
+            const duration = Math.random() * 4 + 4;
+            heart.style.animationDuration = duration + 's';
+
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createHeart, 350);
+    </script>
+</body>
+</html>
